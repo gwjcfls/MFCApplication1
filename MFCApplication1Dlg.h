@@ -12,7 +12,8 @@ public:
 	CMFCApplication1Dlg(CWnd* pParent = nullptr);	// 标准构造函数
 	void CMFCApplication1Dlg::test_1(int q)
 	{
-		
+		CEdit* p = (CEdit*)GetDlgItem(IDC_EDIT2);
+		p->SetWindowText(_T(""));
 		CString s[100];
 		s[0] = "高文进";
 		s[1] = "e";
@@ -24,9 +25,12 @@ public:
 		while (q--)
 		{
 			int i = rand() % 6;
-			GetDlgItem(IDC_STATIC)->SetWindowTextW(s[i]);
-			CEdit* pEdit;
-
+			//GetDlgItem(IDC_STATIC)->SetWindowTextW(s[i]);
+			CEdit* pEdit=(CEdit*)GetDlgItem(IDC_EDIT2);
+			int index = pEdit->GetWindowTextLength();
+			pEdit->SetSel(index, index);
+			pEdit->ReplaceSel(s[i]);
+			pEdit->ReplaceSel(_T("\r\n"));;
 		}
 		//Sleep(100);
 	}
@@ -53,4 +57,5 @@ public:
 	afx_msg void OnBnClickedButton2();
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnBnClickedButton1();
+	afx_msg void OnEnChangeEdit2();
 };
